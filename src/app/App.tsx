@@ -5,8 +5,8 @@ import { Navbar } from './components/Navbar.tsx';
 function App() {
   const [useDarkTheme, setUseDarkTheme] = useState(false);
 
-  function handleOnThemeChange(themeName: string): void {
-    setUseDarkTheme(themeName === 'Dark');
+  function handleOnThemeChange(useDarkTheme: boolean): void {
+    setUseDarkTheme(useDarkTheme);
   }
 
   return (

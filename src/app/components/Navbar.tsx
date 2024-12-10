@@ -15,7 +15,7 @@ const themes = {
 };
 
 interface NavbarProps {
-  onChangeTheme: (themeName: string) => void;
+  onChangeTheme: (useDarkTheme: boolean) => void;
 }
 
 export const Navbar = ({ onChangeTheme }: NavbarProps) => {
@@ -25,6 +25,8 @@ export const Navbar = ({ onChangeTheme }: NavbarProps) => {
   const systemThemeMedia = window.matchMedia('(prefers-color-scheme: dark)');
 
   useEffect(() => {
+    changeTheme(getThemeFromLocalstorage());
+
     const handleSystemThemeChange = () => {
       console.log(`🩷Bijoya - Navbar.tsx > 38 handleSystemThemeChange`);
       if (currentTheme === themes.System) {
@@ -39,7 +41,34 @@ export const Navbar = ({ onChangeTheme }: NavbarProps) => {
     };
   }, [currentTheme]);
 
-  function renderThemeDropdown() {
+  const getThemeFromLocalstorage = () => {
+    const themeName = localStorage.getItem('theme') ?? themes.System.name;
+    // @ts-ignore
+    return themes[themeName] ?? themes.System;
+  };
+
+  const setThemeToLocalStorage = (theme: Theme) => {
+    localStorage.setItem('theme', theme.name);
+  };
+
+  const toggleIsDropdownOpen = () => {
+    setIsDropdownOpen(!isDropdownOpen);
+  };
+
+  const changeTheme = (theme: { name: string; icon: string }) => {
+    setCurrentTheme(theme);
+    setIsDropdownOpen(false);
+    setThemeToLocalStorage(theme);
+    console.log(`🩷Bijoya - Navbar.tsx > 62 changeTheme`, systemThemeMedia.matches, theme);
+
+    if (theme === themes.System) {
+      onChangeTheme(systemThemeMedia.matches);
+    } else {
+      onChangeTheme(theme === themes.Dark);
+    }
+  };
+
+  const renderThemeDropdown = () => {
     if (isDropdownOpen) {
       return (
         <div className="absolute right-0 top-full mt-2 w-48 rounded-lg border border-neutral-200 bg-white shadow-lg dark:border-neutral-700 dark:bg-neutral-800">
@@ -49,9 +78,9 @@ export const Navbar = ({ onChangeTheme }: NavbarProps) => {
     } else {
       return null;
     }
-  }
+  };
 
-  function renderDropdownItems() {
+  const renderDropdownItems = () => {
     return Object.values(themes).map((theme) => {
       return (
         <button
@@ -63,17 +92,7 @@ export const Navbar = ({ onChangeTheme }: NavbarProps) => {
         </button>
       );
     });
-  }
-
-  function toggleIsDropdownOpen() {
-    setIsDropdownOpen(!isDropdownOpen);
-  }
-
-  function changeTheme(theme: { name: string; icon: string }) {
-    setCurrentTheme(theme);
-    setIsDropdownOpen(false);
-    onChangeTheme(systemThemeMedia.matches ? themes.Dark.name : theme.name);
-  }
+  };
 
   return (
     <nav className="absolute flex h-16 w-full justify-between border-b border-neutral-200 bg-white px-4 dark:border-neutral-800 dark:bg-neutral-900">
