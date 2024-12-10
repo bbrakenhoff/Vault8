@@ -95,9 +95,9 @@ export const Navbar = ({ onChangeTheme }: NavbarProps) => {
   };
 
   return (
-    <nav className="absolute flex h-16 w-full justify-between border-b border-neutral-200 bg-white px-4 dark:border-neutral-800 dark:bg-neutral-900">
+    <nav className="absolute flex h-16 w-full justify-between border-b border-neutral-200 bg-white px-4 dark:border-neutral-900 dark:bg-neutral-900">
       <div className="flex items-center gap-4">
-        <img src="/vault8.png" alt="Logo" className="h-12" />
+        <img src="/vault8.png" alt="Logo" className="h-12 dark:fill-neutral-100" />
         <h1 className="m-0 text-xl font-semibold text-neutral-900 dark:text-neutral-50">Vault8</h1>
       </div>
 
@@ -105,7 +105,7 @@ export const Navbar = ({ onChangeTheme }: NavbarProps) => {
       <div className="relative flex items-center">
         <button className="flex items-center p-3 cursor-pointer" onClick={toggleIsDropdownOpen}>
           <span className="mr-2">
-            <img src={currentTheme.icon} alt="Moon icon" className="h-6" />
+            <img src={currentTheme.icon} alt="Moon icon" className="h-6 dark:fill-neutral-100" />
           </span>
           <span className="flex items-center capitalize">{currentTheme.name}</span>
         </button>
