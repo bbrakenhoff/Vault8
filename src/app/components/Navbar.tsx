@@ -1,35 +1,43 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import iconMoon from '../../assets/icon-moon.svg';
 import iconSun from '../../assets/icon-sun.svg';
 import iconSystem from '../../assets/icon-system.svg';
 
-export interface Theme {
+interface Theme {
   name: string;
   icon: string;
 }
 
-const themes: Theme[] = [
-  {
-    name: 'System',
-    icon: iconSystem
-  },
-  {
-    name: 'Dark',
-    icon: iconMoon
-  },
-  {
-    name: 'Light',
-    icon: iconSun
-  }
-];
+const themes = {
+  System: { name: 'System', icon: iconSystem } as Theme,
+  Light: { name: 'Light', icon: iconSun } as Theme,
+  Dark: { name: 'Dark', icon: iconMoon } as Theme
+};
 
 interface NavbarProps {
   onChangeTheme: (themeName: string) => void;
 }
 
 export const Navbar = ({ onChangeTheme }: NavbarProps) => {
-  const [currentTheme, setCurrentTheme] = useState(themes[2]);
+  const [currentTheme, setCurrentTheme] = useState(themes.System);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+  const systemThemeMedia = window.matchMedia('(prefers-color-scheme: dark)');
+
+  useEffect(() => {
+    const handleSystemThemeChange = () => {
+      console.log(`🩷Bijoya - Navbar.tsx > 38 handleSystemThemeChange`);
+      if (currentTheme === themes.System) {
+        changeTheme(themes.System);
+      }
+    };
+
+    systemThemeMedia.addEventListener('change', handleSystemThemeChange);
+
+    return () => {
+      systemThemeMedia.removeEventListener('change', handleSystemThemeChange);
+    };
+  }, [currentTheme]);
 
   function renderThemeDropdown() {
     if (isDropdownOpen) {
@@ -44,25 +52,27 @@ export const Navbar = ({ onChangeTheme }: NavbarProps) => {
   }
 
   function renderDropdownItems() {
-    return themes.map((theme) => (
-      <button
-        key={theme.name}
-        onClick={() => changeTheme(theme)}
-        className="flex w-full items-center gap-3 rounded p-2 text-neutral-700 hover:bg-neutral-100 dark:text-neutral-300 dark:hover:bg-neutral-700">
-        <img className="block h-6 mr-2" src={theme.icon} alt={theme.name} />
-        <span className="capitalize">{theme.name}</span>
-      </button>
-    ));
+    return Object.values(themes).map((theme) => {
+      return (
+        <button
+          key={theme.name}
+          onClick={() => changeTheme(theme)}
+          className="flex w-full items-center gap-3 rounded p-2 text-neutral-700 hover:bg-neutral-100 dark:text-neutral-300 dark:hover:bg-neutral-700">
+          <img className="block h-6 mr-2" src={theme.icon} alt={theme.name} />
+          <span className="capitalize">{theme.name}</span>
+        </button>
+      );
+    });
   }
 
   function toggleIsDropdownOpen() {
     setIsDropdownOpen(!isDropdownOpen);
   }
 
-  function changeTheme(theme: Theme) {
+  function changeTheme(theme: { name: string; icon: string }) {
     setCurrentTheme(theme);
     setIsDropdownOpen(false);
-    onChangeTheme(theme.name);
+    onChangeTheme(systemThemeMedia.matches ? themes.Dark.name : theme.name);
   }
 
   return (
