@@ -1,6 +1,6 @@
 import { Outlet } from 'react-router';
 import { useState } from 'react';
-import { Navbar } from './components/Navbar.tsx';
+import { Navbar } from './components/navbar/Navbar.tsx';
 
 function App() {
   const [useDarkTheme, setUseDarkTheme] = useState(false);
