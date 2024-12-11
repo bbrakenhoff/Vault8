@@ -1,25 +1,12 @@
 import { useEffect, useState } from 'react';
-import iconMoon from '../../assets/icon-moon.svg';
-import iconSun from '../../assets/icon-sun.svg';
-import iconSystem from '../../assets/icon-system.svg';
-
-interface Theme {
-  name: string;
-  icon: string;
-}
-
-const themes = {
-  System: { name: 'System', icon: iconSystem } as Theme,
-  Light: { name: 'Light', icon: iconSun } as Theme,
-  Dark: { name: 'Dark', icon: iconMoon } as Theme
-};
+import { Theme, ThemeIcon } from './ThemeIcon.tsx';
 
 interface NavbarProps {
   onChangeTheme: (useDarkTheme: boolean) => void;
 }
 
 export const Navbar = ({ onChangeTheme }: NavbarProps) => {
-  const [currentTheme, setCurrentTheme] = useState(themes.System);
+  const [currentTheme, setCurrentTheme] = useState(Theme.System);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const systemThemeMedia = window.matchMedia('(prefers-color-scheme: dark)');
@@ -28,9 +15,8 @@ export const Navbar = ({ onChangeTheme }: NavbarProps) => {
     changeTheme(getThemeFromLocalstorage());
 
     const handleSystemThemeChange = () => {
-      console.log(`🩷Bijoya - Navbar.tsx > 38 handleSystemThemeChange`);
-      if (currentTheme === themes.System) {
-        changeTheme(themes.System);
+      if (currentTheme === Theme.System) {
+        changeTheme(Theme.System);
       }
     };
 
@@ -42,36 +28,33 @@ export const Navbar = ({ onChangeTheme }: NavbarProps) => {
   }, [currentTheme]);
 
   const getThemeFromLocalstorage = () => {
-    const themeName = localStorage.getItem('theme') ?? themes.System.name;
-    // @ts-ignore
-    return themes[themeName] ?? themes.System;
+    return (localStorage.getItem('theme') as Theme) ?? Theme.System;
   };
 
   const setThemeToLocalStorage = (theme: Theme) => {
-    localStorage.setItem('theme', theme.name);
+    localStorage.setItem('theme', theme);
   };
 
   const toggleIsDropdownOpen = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
 
-  const changeTheme = (theme: { name: string; icon: string }) => {
+  const changeTheme = (theme: Theme) => {
     setCurrentTheme(theme);
     setIsDropdownOpen(false);
     setThemeToLocalStorage(theme);
-    console.log(`🩷Bijoya - Navbar.tsx > 62 changeTheme`, systemThemeMedia.matches, theme);
 
-    if (theme === themes.System) {
+    if (theme === Theme.System) {
       onChangeTheme(systemThemeMedia.matches);
     } else {
-      onChangeTheme(theme === themes.Dark);
+      onChangeTheme(theme === Theme.Dark);
     }
   };
 
   const renderThemeDropdown = () => {
     if (isDropdownOpen) {
       return (
-        <div className="absolute right-0 top-full mt-2 w-48 rounded-lg border border-neutral-200 bg-white shadow-lg dark:border-neutral-700 dark:bg-neutral-800">
+        <div className="absolute right-0 top-full mt-2 mr-2 w-48 rounded-lg border border-zinc-200 bg-white shadow-lg dark:border-zinc-700 dark:bg-zinc-900">
           <div className="p-1">{renderDropdownItems()}</div>
         </div>
       );
@@ -81,33 +64,33 @@ export const Navbar = ({ onChangeTheme }: NavbarProps) => {
   };
 
   const renderDropdownItems = () => {
-    return Object.values(themes).map((theme) => {
+    return Object.values(Theme).map((theme) => {
       return (
         <button
-          key={theme.name}
+          key={theme}
           onClick={() => changeTheme(theme)}
-          className="flex w-full items-center gap-3 rounded p-2 text-neutral-700 hover:bg-neutral-100 dark:text-neutral-300 dark:hover:bg-neutral-700">
-          <img className="block h-6 mr-2" src={theme.icon} alt={theme.name} />
-          <span className="capitalize">{theme.name}</span>
+          className="flex w-full items-center gap-3 rounded p-2 text-zinc-950 hover:bg-zinc-100 dark:text-zinc-50 dark:hover:bg-zinc-800">
+          <ThemeIcon theme={theme} />
+          <span className="capitalize">{theme}</span>
         </button>
       );
     });
   };
 
   return (
-    <nav className="absolute flex h-16 w-full justify-between border-b border-neutral-200 bg-white px-4 dark:border-neutral-900 dark:bg-neutral-900">
+    <nav className="absolute flex h-16 w-full justify-between border-b border-zinc-200 bg-white px-4 dark:border-zinc-900 dark:bg-zinc-900">
       <div className="flex items-center gap-4">
-        <img src="/vault8.png" alt="Logo" className="h-12 dark:fill-neutral-100" />
-        <h1 className="m-0 text-xl font-semibold text-neutral-900 dark:text-neutral-50">Vault8</h1>
+        <img src="/vault8.png" alt="Logo" className="h-12 dark:fill-zinc-100" />
+        <h1 className="m-0 text-xl font-semibold text-zinc-900 dark:text-zinc-50">Vault8</h1>
       </div>
 
       {/* Theme dropdown */}
       <div className="relative flex items-center">
         <button className="flex items-center p-3 cursor-pointer" onClick={toggleIsDropdownOpen}>
           <span className="mr-2">
-            <img src={currentTheme.icon} alt="Moon icon" className="h-6 dark:fill-neutral-100" />
+            <ThemeIcon theme={currentTheme} />
           </span>
-          <span className="flex items-center capitalize">{currentTheme.name}</span>
+          <span className="flex items-center capitalize">{currentTheme}</span>
         </button>
       </div>
       {renderThemeDropdown()}

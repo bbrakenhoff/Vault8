@@ -12,7 +12,7 @@ function App() {
   return (
     <>
       <div className={`flex min-h-screen w-full ${useDarkTheme ? 'dark' : ''}`}>
-        <div className="flex min-h-screen w-full bg-neutral-100 text-neutral-900 dark:bg-neutral-950 dark:text-neutral-50">
+        <div className="flex min-h-screen w-full bg-zinc-100 text-zinc-950 dark:bg-zinc-950 dark:text-zinc-50">
           <Navbar onChangeTheme={handleOnThemeChange} />
           <main className="flex-1 overflow-hidden p-8 pt-20">
             <Outlet />
