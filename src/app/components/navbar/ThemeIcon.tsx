@@ -8,10 +8,10 @@ export enum Theme {
 
 export const ThemeIcon = ({ theme }: { theme: Theme }) => {
   if (theme === Theme.Dark) {
-    return <MoonIcon className="stroke-zinc-900 dark:stroke-zinc-50 h-6" />;
+    return <MoonIcon className="h-6 stroke-zinc-900 dark:stroke-zinc-50" data-testid="moon-icon" />;
   } else if (theme === Theme.Light) {
-    return <SunIcon className="stroke-zinc-900 dark:stroke-zinc-50 h-6" />;
+    return <SunIcon className="h-6 stroke-zinc-900 dark:stroke-zinc-50" data-testid="sun-icon" />;
   } else {
-    return <ComputerDesktopIcon className="stroke-zinc-900 dark:stroke-zinc-50 h-6" />;
+    return <ComputerDesktopIcon className="h-6 stroke-zinc-900 dark:stroke-zinc-50" data-testid="computer-icon" />;
   }
 };
