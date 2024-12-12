@@ -2,11 +2,12 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import { Navbar } from './Navbar';
 import { Simulate } from 'react-dom/test-utils';
 import { act } from 'react';
+import { vi } from 'vitest';
 
 describe('Navbar Component', () => {
   let mockOnChangeTheme: ReturnType<typeof vi.fn>;
 
-  let localStorageMock: Storage;
+  let localStorageOriginal: Storage;
 
   const dropdownButton = () => screen.queryByTestId('dropdown-button');
   const darkThemeButton = () => screen.queryByTestId('dark-theme-button');
@@ -15,7 +16,7 @@ describe('Navbar Component', () => {
 
   beforeEach(() => {
     mockOnChangeTheme = vi.fn();
-    localStorageMock = globalThis.localStorage;
+    localStorageOriginal = globalThis.localStorage;
 
     // Mock localStorage
     const storage = new Map<string, string>();
@@ -31,7 +32,7 @@ describe('Navbar Component', () => {
 
   afterEach(() => {
     vi.restoreAllMocks();
-    Object.defineProperty(globalThis, 'localStorage', { value: localStorageMock });
+    Object.defineProperty(globalThis, 'localStorage', { value: localStorageOriginal });
   });
 
   test('renders without crashing', () => {
@@ -59,7 +60,30 @@ describe('Navbar Component', () => {
   });
 
   test('reacts to system theme changes when set to system theme', () => {
+    const originalMatchMedia = globalThis.matchMedia;
+    Object.defineProperty(globalThis, 'matchMedia', {
+      writable: true,
+      value: vi.fn().mockImplementation((query) => ({
+        matches: false,
+        media: query,
+        onchange: null,
+        addListener: vi.fn(), // Deprecated
+        removeListener: vi.fn(), // Deprecated
+        addEventListener: vi.fn(),
+        removeEventListener: vi.fn(),
+        dispatchEvent: vi.fn()
+      }))
+    });
 
+    render(<Navbar onChangeTheme={mockOnChangeTheme} />);
+
+    expect(screen.getByText('System')).toBeInTheDocument();
+    const event = new MediaQueryListEvent('change', { matches: true });
+    globalThis.matchMedia('(prefers-color-scheme: dark)').dispatchEvent(event);
+
+    expect(mockOnChangeTheme).not.toHaveBeenCalledWith(true);
+
+    Object.defineProperty(globalThis, 'matchMedia', { value: originalMatchMedia });
   });
 
   test('renders the correct initial theme from localStorage', () => {
