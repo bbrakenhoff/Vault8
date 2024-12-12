@@ -1,3 +1,4 @@
+/// <reference types="@testing-library/react" />
 /// <reference types="vitest" />
 import { defineConfig } from 'vitest/config';
 

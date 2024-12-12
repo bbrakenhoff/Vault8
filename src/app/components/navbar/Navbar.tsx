@@ -54,7 +54,7 @@ export const Navbar = ({ onChangeTheme }: NavbarProps) => {
   const renderThemeDropdown = () => {
     if (isDropdownOpen) {
       return (
-        <div className="absolute right-0 top-full mt-2 mr-2 w-48 rounded-lg border border-zinc-200 bg-white shadow-lg dark:border-zinc-700 dark:bg-zinc-900">
+        <div className="absolute right-0 top-full mr-2 mt-2 w-48 rounded-lg border border-zinc-200 bg-white shadow-lg dark:border-zinc-700 dark:bg-zinc-900">
           <div className="p-1">{renderDropdownItems()}</div>
         </div>
       );
@@ -65,11 +65,13 @@ export const Navbar = ({ onChangeTheme }: NavbarProps) => {
 
   const renderDropdownItems = () => {
     return Object.values(Theme).map((theme) => {
+      const testId = `${theme.toLowerCase()}-theme-button`;
       return (
         <button
           key={theme}
           onClick={() => changeTheme(theme)}
-          className="flex w-full items-center gap-3 rounded p-2 text-zinc-950 hover:bg-zinc-100 dark:text-zinc-50 dark:hover:bg-zinc-800">
+          className="dark:hover:bg-zinc-800 flex w-full items-center gap-3 rounded p-2 text-zinc-950 hover:bg-zinc-100 dark:text-zinc-50"
+          data-testid={testId}>
           <ThemeIcon theme={theme} />
           <span className="capitalize">{theme}</span>
         </button>
@@ -86,7 +88,10 @@ export const Navbar = ({ onChangeTheme }: NavbarProps) => {
 
       {/* Theme dropdown */}
       <div className="relative flex items-center">
-        <button className="flex items-center p-3 cursor-pointer" onClick={toggleIsDropdownOpen}>
+        <button
+          className="flex cursor-pointer items-center p-3"
+          onClick={toggleIsDropdownOpen}
+          data-testid="dropdown-button">
           <span className="mr-2">
             <ThemeIcon theme={currentTheme} />
           </span>
