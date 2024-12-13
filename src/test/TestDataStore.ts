@@ -1,7 +1,6 @@
 import { RetrospectiveStub } from './RetrospectiveStub.ts';
 import { retrospectiveElementStubs } from './stubs/retrospectiveElements.ts';
 import {
-  NotionPage,
   NotionQueryResponse,
   NotionRetrospectiveElementProperties,
   NotionRetrospectiveProperties

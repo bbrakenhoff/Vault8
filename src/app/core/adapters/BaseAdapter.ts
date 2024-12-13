@@ -9,7 +9,7 @@ export abstract class BaseAdapter {
     return richText?.rich_text?.[0]?.plain_text ?? null;
   }
 
-  protected extractDate(dateString: string | null | null): DateTime | null {
+  protected extractDate(dateString: string | null): DateTime | null {
     return dateString ? DateTime.fromISO(dateString) : null;
   }
 

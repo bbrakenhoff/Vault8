@@ -56,9 +56,7 @@ export const retrospectivesStubs: {
           phase: ['closing'],
           instruction: "Award 'house points' for the most impactful contributions during the sprint."
         }
-      },
-      createdTime: '2024-12-01T09:00:00Z',
-      lastEditedTime: '2024-12-02T10:00:00Z'
+      }
     },
     {
       id: 'retrospective2-no-phases',
@@ -71,9 +69,7 @@ export const retrospectivesStubs: {
         generateInsights: null,
         decideWhatToDo: null,
         closing: null
-      },
-      createdTime: '2024-12-02T09:00:00Z',
-      lastEditedTime: '2024-12-02T12:00:00Z'
+      }
     },
     {
       id: 'retrospective3-missing-closing-phase',
@@ -119,9 +115,7 @@ export const retrospectivesStubs: {
           instruction: "Plan actionable tasks over a virtual 'Butterbeer toast' session."
         },
         closing: null
-      },
-      createdTime: '2024-12-03T09:00:00Z',
-      lastEditedTime: '2024-12-03T11:00:00Z'
+      }
     },
     {
       id: 'retrospective4-missing-setTheStage-phase',
@@ -167,9 +161,7 @@ export const retrospectivesStubs: {
           phase: ['closing'],
           instruction: "Summarize the sprint by playing 'Perfect' and highlighting team successes."
         }
-      },
-      createdTime: '2024-12-04T09:00:00Z',
-      lastEditedTime: '2024-12-04T11:00:00Z'
+      }
     },
     {
       id: 'retrospective5-missing-generateInsights-phase',
@@ -215,9 +207,7 @@ export const retrospectivesStubs: {
           phase: ['closing'],
           instruction: "End the retrospective with a metaphorical 'fireworks display' of team achievements."
         }
-      },
-      createdTime: '2024-12-05T09:00:00Z',
-      lastEditedTime: '2024-12-05T11:00:00Z'
+      }
     },
     {
       id: 'retrospective6-missing-gatherData-phase',
@@ -264,9 +254,7 @@ export const retrospectivesStubs: {
           instruction:
             "Celebrate the sprint as a successful space launch. Team members share one 'mission highlight' (success) and one 'system upgrade' (improvement suggestion) for the next mission."
         }
-      },
-      createdTime: '2024-12-06T09:00:00Z',
-      lastEditedTime: '2024-12-06T11:00:00Z'
+      }
     },
     {
       id: 'retrospective7-missing-decideWhatToDo-phase',
@@ -311,9 +299,7 @@ export const retrospectivesStubs: {
           phase: ['closing'],
           instruction: "End the retrospective with a metaphorical 'fireworks display' of team achievements."
         }
-      },
-      createdTime: '2024-12-07T09:00:00Z',
-      lastEditedTime: '2024-12-07T11:00:00Z'
+      }
     }
   ],
   refOnly: [
@@ -328,9 +314,7 @@ export const retrospectivesStubs: {
         generateInsights: 'generateInsights1',
         decideWhatToDo: 'decideWhatToDo3',
         closing: 'closing1'
-      },
-      createdTime: '2024-12-01T09:00:00Z',
-      lastEditedTime: '2024-12-02T10:00:00Z'
+      }
     },
     {
       id: 'retrospective2-no-phases',
@@ -343,9 +327,7 @@ export const retrospectivesStubs: {
         generateInsights: null,
         decideWhatToDo: null,
         closing: null
-      },
-      createdTime: '2024-12-02T09:00:00Z',
-      lastEditedTime: '2024-12-02T12:00:00Z'
+      }
     },
     {
       id: 'retrospective3-missing-closing-phase',
@@ -358,9 +340,7 @@ export const retrospectivesStubs: {
         generateInsights: 'generateInsights4',
         decideWhatToDo: 'decideWhatToDo1',
         closing: null
-      },
-      createdTime: '2024-12-03T09:00:00Z',
-      lastEditedTime: '2024-12-03T11:00:00Z'
+      }
     },
     {
       id: 'retrospective4-missing-setTheStage-phase',
@@ -373,9 +353,7 @@ export const retrospectivesStubs: {
         generateInsights: 'generateInsights2',
         decideWhatToDo: 'decideWhatToDo4',
         closing: 'closing2'
-      },
-      createdTime: '2024-12-04T09:00:00Z',
-      lastEditedTime: '2024-12-04T11:00:00Z'
+      }
     },
     {
       id: 'retrospective5-missing-generateInsights-phase',
@@ -388,9 +366,7 @@ export const retrospectivesStubs: {
         generateInsights: null,
         decideWhatToDo: 'decideWhatToDo2',
         closing: 'closing3'
-      },
-      createdTime: '2024-12-05T09:00:00Z',
-      lastEditedTime: '2024-12-05T11:00:00Z'
+      }
     },
     {
       id: 'retrospective6-missing-gatherData-phase',
@@ -403,9 +379,7 @@ export const retrospectivesStubs: {
         generateInsights: 'generateInsights3',
         decideWhatToDo: 'decideWhatToDo2',
         closing: 'closing4'
-      },
-      createdTime: '2024-12-06T09:00:00Z',
-      lastEditedTime: '2024-12-06T11:00:00Z'
+      }
     },
     {
       id: 'retrospective7-missing-decideWhatToDo-phase',
@@ -418,9 +392,7 @@ export const retrospectivesStubs: {
         generateInsights: 'generateInsights2',
         decideWhatToDo: null,
         closing: 'closing3'
-      },
-      createdTime: '2024-12-07T09:00:00Z',
-      lastEditedTime: '2024-12-07T11:00:00Z'
+      }
     }
   ]
 };

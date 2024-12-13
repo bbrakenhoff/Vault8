@@ -3,19 +3,14 @@ import { RetrospectiveElement } from './RetrospectiveElement.ts';
 
 export interface Retrospective {
   id: string;
-  createdTime: DateTime;
-  lastEditedTime: DateTime;
   sprint: string | null;
   team: string | null;
   date: DateTime | null;
-  // url: string;
-
-  // Relation fields for different phases
   phases: {
-    setTheStage: RetrospectiveElement | null;
-    gatherData: RetrospectiveElement | null;
-    generateInsights: RetrospectiveElement | null;
-    decideWhatToDo: RetrospectiveElement | null;
-    closing: RetrospectiveElement | null;
+    setTheStage: string | RetrospectiveElement | null;
+    gatherData: string | RetrospectiveElement | null;
+    generateInsights: string | RetrospectiveElement | null;
+    decideWhatToDo: string | RetrospectiveElement | null;
+    closing: string | RetrospectiveElement | null;
   };
 }

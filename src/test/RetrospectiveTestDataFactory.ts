@@ -1,22 +1,22 @@
 import { RetrospectiveStub } from './RetrospectiveStub.ts';
 import { NotionPage, NotionRetrospectiveProperties } from '../app/core/notion-types';
+import { Retrospective } from '../app/core/models';
+import { DateTime } from 'luxon';
 
 export class RetrospectiveTestDataFactory {
-  static createRetrospective(stub: RetrospectiveStub): RetrospectiveStub {
+  static createRetrospective(stub: RetrospectiveStub): Retrospective {
     return {
       id: stub.id,
       sprint: stub.sprint,
       team: stub.team,
-      date: stub.date,
+      date: stub.date ? DateTime.fromISO(stub.date) : null,
       phases: {
-        setTheStage: stub.phases.setTheStage,
-        gatherData: stub.phases.gatherData,
-        generateInsights: stub.phases.generateInsights,
-        decideWhatToDo: stub.phases.decideWhatToDo,
-        closing: stub.phases.closing
-      },
-      createdTime: stub.createdTime,
-      lastEditedTime: stub.lastEditedTime
+        setTheStage: stub.phases.setTheStage as string,
+        gatherData: stub.phases.gatherData as string,
+        generateInsights: stub.phases.generateInsights as string,
+        decideWhatToDo: stub.phases.decideWhatToDo as string,
+        closing: stub.phases.closing as string
+      }
     };
   }
   static createNotionPage(stub: RetrospectiveStub): NotionPage<NotionRetrospectiveProperties> {

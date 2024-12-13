@@ -17,8 +17,8 @@ describe('RetrospectiveElementAdapter', () => {
     expect(adapter).toBeTruthy();
   });
 
-  describe('toRetrospectiveElements', () => {
-    it('should map NotionPage to RetrospectiveElement', () => {
+  describe('toRetrospectiveElements()', () => {
+    it('should map NotionPage<RetrospectiveElementProperties> to RetrospectiveElement', () => {
       const result = adapter.toRetrospectiveElements(testData.notionQueryResponse);
       expect(result).toEqual(testData.retrospectiveElements);
     });

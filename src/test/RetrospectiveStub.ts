@@ -12,6 +12,4 @@ export interface RetrospectiveStub {
     decideWhatToDo: RetrospectiveElementStub | string | null;
     closing: RetrospectiveElementStub | string | null;
   };
-  createdTime: string;
-  lastEditedTime: string;
 }
