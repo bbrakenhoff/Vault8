@@ -1,7 +1,4 @@
-export interface NotionPage {
+export interface NotionPage<Props> {
   id: string;
-  created_time: string;
-  last_edited_time: string;
-  url: string;
-  properties: unknown;
+  properties: Props;
 }

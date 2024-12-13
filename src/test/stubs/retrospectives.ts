@@ -1,6 +1,6 @@
 import { RetrospectiveStub } from '../RetrospectiveStub.ts';
 
-export const testRetrospectives: {
+export const retrospectivesStubs: {
   full: RetrospectiveStub[];
   refOnly: RetrospectiveStub[];
 } = {

@@ -1,6 +1,6 @@
 import { RetrospectiveElementStub } from '../RetrospectiveElementStub.ts';
 
-export const testRetrospectiveElements: RetrospectiveElementStub[] = [
+export const retrospectiveElementStubs: RetrospectiveElementStub[] = [
   // Set the Stage
   {
     id: 'setTheStage1',

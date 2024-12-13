@@ -1,40 +1,44 @@
 import { RetrospectiveStub } from './RetrospectiveStub.ts';
-import { RetrospectiveElementStub } from './RetrospectiveElementStub.ts';
-import { testRetrospectiveElements } from './stubs/retrospectiveElements.ts';
-import { testRetrospectives } from './stubs/retrospectives.ts';
+import { retrospectiveElementStubs } from './stubs/retrospectiveElements.ts';
+import {
+  NotionPage,
+  NotionQueryResponse,
+  NotionRetrospectiveElementProperties,
+  NotionRetrospectiveProperties
+} from '../app/core/notion-types';
+import { retrospectivesStubs } from './stubs/retrospectives.ts';
 import { RetrospectiveElement } from '../app/core/models';
-
-interface TestData {
-  retrospectives: { full: RetrospectiveStub[]; refOnly: RetrospectiveStub[] };
-  retrospectiveElements: RetrospectiveElementStub[];
-}
+import { RetrospectiveElementTestDataFactory } from './RetrospectiveElementTestDataFactory.ts';
+import { RetrospectiveTestDataFactory } from './RetrospectiveTestDataFactory.ts';
 
 class TestDataStore {
-  private readonly testData: TestData;
+  private readonly stubs = {
+    retrospectiveElements: retrospectiveElementStubs,
+    retrospectives: retrospectivesStubs
+  };
 
-  constructor() {
-    this.testData = {
-      retrospectiveElements: testRetrospectiveElements,
-      retrospectives: testRetrospectives
+  retrospectiveElements(): RetrospectiveElement[] {
+    return this.stubs.retrospectiveElements.map((stub) =>
+      RetrospectiveElementTestDataFactory.createRetrospectiveElement(stub)
+    );
+  }
+
+  notionRetrospectiveElements(): NotionQueryResponse<NotionRetrospectiveElementProperties> {
+    return {
+      results: this.stubs.retrospectiveElements.map((stub) =>
+        RetrospectiveElementTestDataFactory.createNotionPage(stub)
+      )
     };
   }
 
-  mapRetrospectiveElementsToDomainModel(): RetrospectiveElement[] {
-    return this.testData.retrospectiveElements.map(
-      (element) =>
-        ({
-          id: element.id,
-          name: element.name,
-          theme: element.theme,
-          link: element.link,
-          attendanceOptions: element.attendanceOptions,
-          phase: element.phase,
-          instruction: element.instruction,
-          createdTime: null, // You may want to add a default value or a way to generate this
-          lastEditedTime: null, // You may want to add a default value or a way to generate this
-          usedInRetrospectiveIds: []
-        }) as RetrospectiveElement
-    );
+  retrospectives(): RetrospectiveStub[] {
+    return this.stubs.retrospectives.refOnly.map((stub) => RetrospectiveTestDataFactory.createRetrospective(stub));
+  }
+
+  notionRetrospectives(): NotionQueryResponse<NotionRetrospectiveProperties> {
+    return {
+      results: this.stubs.retrospectives.refOnly.map((stub) => RetrospectiveTestDataFactory.createNotionPage(stub))
+    };
   }
 }
 
